@@ -1,92 +1,120 @@
-# Medसफ़र
+# Medsafar (मेडसफर)
 
-A decentralized application for tracking medicines through the supply chain, from raw material suppliers to end consumers.
+> **Smart India Hackathon (SIH) 2024 Finalist Project**
+
+A decentralized blockchain application for tracking medicines through the entire supply chain - from raw material suppliers to end consumers. Built with Solidity smart contracts and React frontend to ensure transparency, authenticity, and traceability in pharmaceutical distribution.
+
+**Developed as part of [Smart India Hackathon 2024](https://kjsce.somaiya.edu/en/view-announcement/672/) - representing innovation in healthcare technology solutions.**
 
 ## Table of Contents
-- [Medसफ़र](#medसफ़र)
-  - [Table of Contents](#table-of-contents)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Local Development Setup](#local-development-setup)
-    - [Start Ganache](#start-ganache)
-    - [Configure MetaMask](#configure-metamask)
-    - [Use Hardhat Test Accounts](#use-hardhat-test-accounts)
-    - [Deploy Smart Contracts Locally](#deploy-smart-contracts-locally)
-    - [Start the Frontend Application](#start-the-frontend-application)
-  - [Sepolia Network Deployment](#sepolia-network-deployment)
-    - [Prerequisites](#prerequisites-1)
-    - [Configure Environment Variables](#configure-environment-variables)
-    - [Steps](#steps)
-    - [Start the frontend application:](#start-the-frontend-application-1)
-  - [Project Structure](#project-structure)
-  - [Features](#features)
-  - [Available Scripts](#available-scripts)
-    - [Start development server:](#start-development-server)
-    - [Compile smart contracts:](#compile-smart-contracts)
-    - [Run contract tests:](#run-contract-tests)
-    - [Deploy contracts:](#deploy-contracts)
+
+- [Features](#features)
+- [Architecture](#architecture)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Local Development Setup](#local-development-setup)
+  - [Option 1: Using Ganache](#option-1-using-ganache)
+  - [Option 2: Using Hardhat Network](#option-2-using-hardhat-network)
+- [Sepolia Testnet Deployment](#sepolia-testnet-deployment)
+- [Project Structure](#project-structure)
+- [Usage](#usage)
+- [Testing](#testing)
+- [Available Scripts](#available-scripts)
+- [Configuration](#configuration)
+- [Contributing](#contributing)
+- [Troubleshooting](#troubleshooting)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
+- [Support](#support)
+
+## Features
+
+- **End-to-End Tracking**: Monitor medicines from raw materials to final delivery
+- **Multi-Role System**: Support for suppliers, manufacturers, distributors, and retailers  
+- **Order Management**: Create, track, and manage medicine orders seamlessly
+- **Real-Time Monitoring**: Live status updates throughout the supply chain
+- **Detailed Logging**: Comprehensive audit trail for all transactions
+- **Blockchain Security**: Immutable records powered by Ethereum
+- **Decentralized**: No single point of failure or control
+
+## Architecture
+
+```
+Raw Material → Manufacturer → Distributor → Retailer → Consumer
+     ↓              ↓            ↓           ↓          ↓
+  Blockchain ←→ Smart Contract ←→ Frontend ←→ MetaMask
+```
 
 ## Prerequisites
 
 Before you begin, ensure you have the following installed:
+
 - **Node.js** (>= 14.0.0) and **npm** (>= 6.0.0)
 - **Git**
 - **MetaMask** browser extension
-- **Ganache** (for local blockchain simulation)
+- **Ganache** (for local blockchain simulation) or **Hardhat Network**
 
 ## Installation
 
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd medical-supply-chain
-   ```
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Amrit-Nigam/Medsafar.git
+cd Medsafar
+```
+
+### 2. Install Dependencies
+```bash
+npm install
+cd client
+npm install
+cd ..
+```
 
 ## Local Development Setup
 
+### Option 1: Using Ganache
 
-### Start Ganache
+1. **Start Ganache**
+   - Open Ganache and create a new workspace (Quickstart is sufficient)
+   - Note the RPC Server URL (usually `http://127.0.0.1:7545`)
 
-Open Ganache and create a new workspace (Quickstart is sufficient).
-Note down the RPC Server URL (usually http://127.0.0.1:7545).
+2. **Configure MetaMask**
+   - Add Ganache network to MetaMask:
+     - Network Name: `Ganache`
+     - RPC URL: `http://127.0.0.1:7545`
+     - Chain ID: `1337`
+     - Currency Symbol: `ETH`
+   - Import test accounts using private keys from Ganache
 
-### Configure MetaMask
+### Option 2: Using Hardhat Network
 
-Open MetaMask and add the Ganache network:
-- Network Name: Ganache
-- RPC URL: http://127.0.0.1:7545
-- Chain ID: 1337
-- Currency Symbol: ETH
+1. **Start Hardhat Node**
+   ```bash
+   npx hardhat node
+   ```
 
-Import test accounts from Ganache into MetaMask using the private keys available in the Ganache interface.
+2. **Configure MetaMask**
+   - Add Hardhat network:
+     - Network Name: `Hardhat`
+     - RPC URL: `http://127.0.0.1:8545`
+     - Chain ID: `31337`
+     - Currency Symbol: `ETH`
+   - Import test accounts using private keys displayed in terminal
 
-### Use Hardhat Test Accounts
+### 3. Deploy Smart Contracts
 
-Alternatively, you can use Hardhat's built-in network to run a local blockchain and use its test accounts.
-
-Start the Hardhat node:
 ```bash
-npx hardhat node
-```
-
-Configure MetaMask to connect to the Hardhat network:
-- Network Name: Hardhat
-- RPC URL: http://127.0.0.1:8545
-- Chain ID: 31337
-- Currency Symbol: ETH
-
-Import test accounts from Hardhat into MetaMask using the private keys displayed in the terminal where you started the Hardhat node.
-
-
-### Deploy Smart Contracts Locally
-
-Compile and deploy contracts:
-```bash
+# Compile contracts
 npx hardhat compile
+
+# Deploy to local network
 npx hardhat run scripts/deploy.js --network localhost
 ```
 
-Copy the deployed contract address and update the networks configuration in `client/src/constants/SupplyChain.json`:
+### 4. Update Contract Address
+
+Copy the deployed contract address and update `client/src/constants/SupplyChain.json`:
+
 ```json
 {
   "5777": {
@@ -95,37 +123,43 @@ Copy the deployed contract address and update the networks configuration in `cli
 }
 ```
 
-### Start the Frontend Application
+### 5. Start Frontend
 
-Navigate to the client folder and run:
 ```bash
+cd client
 npm run dev
 ```
-The application will be available at [http://localhost:3000](http://localhost:3000).
 
-## Sepolia Network Deployment
+The application will be available at `http://localhost:3000`
 
-### Prerequisites
+## Sepolia Testnet Deployment
 
-Fund your Sepolia account with ETH from a faucet.
+### 1. Setup Environment
 
-### Configure Environment Variables
+Create a `.env` file in the root directory:
 
-Create a .env file in the root directory with the following:
-```makefile
+```env
 SEPOLIA_API_KEY=your_private_key
 ETHERSCAN_API_KEY=your_etherscan_api_key
 ALCHEMY_API_KEY=your_alchemy_api_key
 ```
 
-### Steps
+### 2. Fund Your Account
 
-Deploy to Sepolia:
+Get Sepolia ETH from a faucet like:
+- [Sepolia Faucet](https://sepoliafaucet.com/)
+- [Alchemy Sepolia Faucet](https://sepoliafaucet.com/)
+
+### 3. Deploy to Sepolia
+
 ```bash
 npx hardhat run scripts/deploy.js --network sepolia
 ```
 
-Copy the deployed contract address and update the `SupplyChain.json` file in the client:
+### 4. Update Contract Configuration
+
+Update `client/src/constants/SupplyChain.json` with Sepolia network:
+
 ```json
 {
   "11155111": {
@@ -134,53 +168,113 @@ Copy the deployed contract address and update the `SupplyChain.json` file in the
 }
 ```
 
-### Start the frontend application:
-```bash
-cd client
-npm run dev
-```
-Access the application at [http://localhost:3000](http://localhost:3000).
-
 ## Project Structure
-```bash
-├── client/                 # Frontend React application
+
+```
+Medsafar/
+├── client/                 # React frontend application
 │   ├── src/
 │   │   ├── artifacts/      # Contract ABIs and addresses
-│   │   ├── components/     # React components
-│   │   ├── pages/          # React pages
-│   │   └── styles/         # CSS styles
-├── contracts/              # Solidity smart contracts
-├── scripts/                # Deployment scripts
-├── test/                   # Contract tests
-└── hardhat.config.js       # Hardhat configuration
+│   │   ├── components/     # Reusable React components
+│   │   ├── pages/         # Application pages
+│   │   └── styles/        # CSS styling
+├── contracts/             # Solidity smart contracts
+├── scripts/              # Deployment and utility scripts
+├── test/                 # Smart contract tests
+├── hardhat.config.js     # Hardhat configuration
+└── package.json          # Project dependencies
 ```
 
-## Features
+## Usage
 
-- Register supply chain participants: Raw Material Suppliers, Manufacturers, Distributors, Retailers.
-- Order medicines: Create and manage orders.
-- Track medicine status: Real-time tracking through the supply chain.
-- Monitor movement: Detailed logs from supplier to consumer.
-- Participant details: View information about all supply chain participants.
+### For Supply Chain Participants
 
-## Available Scripts
+1. **Registration**: Register as a supplier, manufacturer, distributor, or retailer
+2. **Create Orders**: Initiate medicine orders with detailed specifications
+3. **Track Progress**: Monitor order status in real-time
+4. **Update Status**: Update order status as it moves through the supply chain
+5. **View History**: Access complete audit trail for any medicine batch
 
-### Start development server:
-```bash
-npm run dev
-```
+### For Consumers
 
-### Compile smart contracts:
-```bash
-npx hardhat compile
-```
+1. **Verify Authenticity**: Check if medicines are genuine
+2. **Track Origin**: See the complete journey from raw materials
+3. **View Details**: Access information about all participants in the chain
 
-### Run contract tests:
+## Testing
+
+Run smart contract tests:
+
 ```bash
 npx hardhat test
 ```
 
-### Deploy contracts:
+## Available Scripts
+
 ```bash
-npx hardhat run scripts/deploy.js --network <network-name>
+# Frontend development
+npm run dev                    # Start development server
+
+# Smart contract operations
+npx hardhat compile           # Compile contracts
+npx hardhat test             # Run tests
+npx hardhat run scripts/deploy.js --network <network>  # Deploy contracts
+npx hardhat node            # Start local blockchain
 ```
+
+## Configuration
+
+### Network Configuration
+
+The project supports multiple networks configured in `hardhat.config.js`:
+
+- **Localhost**: For local development
+- **Sepolia**: For testnet deployment
+- **Mainnet**: For production (configure with caution)
+
+### MetaMask Networks
+
+Ensure MetaMask is configured with the appropriate network settings matching your deployment target.
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+## Troubleshooting
+
+### Common Issues
+
+- **Contract not found**: Ensure you've updated the contract address in `SupplyChain.json`
+- **MetaMask connection issues**: Verify network configuration and account import
+- **Transaction failures**: Check if you have sufficient ETH for gas fees
+- **Build errors**: Clear `node_modules` and reinstall dependencies
+
+### Getting Help
+
+If you encounter issues:
+1. Check the browser console for error messages
+2. Verify MetaMask is connected to the correct network
+3. Ensure contract is deployed and address is updated
+4. Check that you have sufficient test ETH
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- **Smart India Hackathon 2024**: This project was developed as part of SIH 2024, where it reached the finalist stage
+- Built with [Hardhat](https://hardhat.org/) development environment
+- Frontend powered by [React](https://reactjs.org/)
+- Blockchain integration via [Web3.js](https://web3js.readthedocs.io/)
+- UI components and styling
+- Special thanks to the SIH organizing committee and mentors for their support
+
+
+---
+
+**Made with ❤️ Team SilkRoad**
