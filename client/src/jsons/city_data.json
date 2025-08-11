@@ -1,0 +1,53 @@
+[
+	{
+		"Location": "Ahmedabad",
+		"Quantity": "629398",
+		"lat": "23.0225",
+		"lon": "72.5714"
+	},
+	{
+		"Location": "Bangalore",
+		"Quantity": "613207",
+		"lat": "12.9716",
+		"lon": "77.5946"
+	},
+	{
+		"Location": "Chennai",
+		"Quantity": "622899",
+		"lat": "13.0827",
+		"lon": "80.2707"
+	},
+	{
+		"Location": "Delhi",
+		"Quantity": "633835",
+		"lat": "28.7041",
+		"lon": "77.1025"
+	},
+	{
+		"Location": "Hyderabad",
+		"Quantity": "632666",
+		"lat": "17.385",
+		"lon": "78.4867"
+	},
+	{
+		"Location": "Kolkata",
+		"Quantity": "607286",
+		"lat": "22.5726",
+		"lon": "88.3639"
+	},
+	{
+		"Location": "Mumbai",
+		"Quantity": "609765",
+		"lat": "19.076",
+		"lon": "72.8777"
+	},
+	{
+		"Location": "Pune",
+		"Quantity": "616167",
+		"lat": "18.5204",
+		"lon": "73.8567"
+	},
+	{
+		"Location": ""
+	}
+]
